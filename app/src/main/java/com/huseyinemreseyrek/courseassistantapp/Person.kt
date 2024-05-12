@@ -1,73 +1,52 @@
 package com.huseyinemreseyrek.courseassistantapp
 
-import android.graphics.Bitmap
-import java.io.Serializable
 
-class Person(var name: String, var surName: String, val email : String, val accountType: String, val studentID: String) :
-    Serializable { //Person classi instructor veya studentler icin, instructor ise studentID 0 olarak girilcek ve gosterilmicek.
+sealed class Person(
+    open val accountType : String,
+    open var name: String,
+    open var surName: String,
+    open val email: String,
+    open var downloadUrl: String,
+    open var educationalInfo: String,
+    open var phoneNumber: String,
+    open var instagramAdress: String,
+    open var twitterAdress: String,
+    open var courses: MutableList<Map<String, Any>>
+)
 
-    private var educationalInfo : String = ""
-    private var phoneNumber : String = ""
-    private var instagramAdress : String = ""
-    private var twitterAdress : String = ""
-    private var profilePicture: ByteArray? = null //profil fotografini byte array formunda kaydediyoruz.
+data class Student(
+    override val accountType: String,
+    val studentID: String,
+    override var name: String,
+    override var surName: String,
+    override val email: String,
+    override var downloadUrl: String,
+    override var educationalInfo: String,
+    override var phoneNumber: String,
+    override var instagramAdress: String,
+    override var twitterAdress: String,
+    override var courses: MutableList<Map<String, Any>>
+) : Person(accountType, name, surName, email, downloadUrl, educationalInfo, phoneNumber, instagramAdress, twitterAdress, courses)
 
-    fun getEducationalInfo(): String {
-        return educationalInfo
-    }
+data class Instructor(
+    override val accountType: String,
+    override var name: String,
+    override var surName: String,
+    override val email: String,
+    override var downloadUrl: String,
+    override var educationalInfo: String,
+    override var phoneNumber: String,
+    override var instagramAdress: String,
+    override var twitterAdress: String,
+    override var courses: MutableList<Map<String, Any>>
+) : Person(accountType, name, surName, email, downloadUrl, educationalInfo, phoneNumber, instagramAdress, twitterAdress , courses)
 
-    fun setEducationalInfo(info: String) {
-        educationalInfo = info
-    }
-
-    fun getPhoneNumber(): String {
-        return phoneNumber
-    }
-
-    fun setPhoneNumber(number: String) {
-        phoneNumber = number
-    }
-
-    fun getInstagramAdress(): String {
-        return instagramAdress
-    }
-
-    fun setInstagramAdress(adress: String) {
-        instagramAdress = adress
-    }
-
-    fun getTwitterAdress(): String {
-        return twitterAdress
-    }
-
-    fun setTwitterAdress(adress: String) {
-        twitterAdress = adress
-    }
-    fun getProfilePicture(): ByteArray? {
-        return profilePicture
-    }
-
-    fun setProfilePicture(bytearray: ByteArray) {
-        profilePicture = bytearray
-    }
-    constructor(
-        name: String,
-        surName: String,
-        email: String,
-        accountType: String,
-        studentID: String,
-        educationalInfo: String,
-        phoneNumber: String,
-
-    ) : this(name, surName, email, accountType, studentID) {
-        this.educationalInfo = educationalInfo
-        this.phoneNumber = phoneNumber
-
-
-    }
-
-}
 
 object Admin {
-    var admin: Person = Person("admin","admin","admin","admin","0","admin","admin123456")
+    var admin: Instructor = Instructor("admin","admin","admin","admin","","",""
+        ,"","" , mutableListOf()
+    )
 }
+
+
+

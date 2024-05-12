@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddCourse">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/CourseIDTextInputLayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:helperText="Required">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/courseIDEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/course_id"
+            android:inputType = "text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="119dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/add_course"
+        android:textColor="#099BDD"
+        android:textColorHint="#10A4E6"
+        android:textColorLink="#1F91C5"
+        android:textSize="23sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/courseNameTextInputLayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/CourseIDTextInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/CourseIDTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/CourseIDTextInputLayout"
+        app:helperText="Required">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/courseNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Course Name"
+            android:inputType = "text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/groupNumbersTextInputLayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/courseNameTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/courseNameTextInputLayout"
+        app:helperText="Required">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/groupNumbersEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/group_numbers"
+            android:inputType = "numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/addCourseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:onClick="addCourse"
+        android:text="@string/add_course"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupNumbersTextInputLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

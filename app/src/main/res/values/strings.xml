@@ -26,6 +26,14 @@
     <string name="educational_info">Educational Info</string>
     <string name="confirm">Confirm</string>
     <string name="reset_password">Reset Password</string>
+    <string name="add_course">Add Course</string>
+    <string name="group_numbers">Group Numbers</string>
+    <string name="course_id">Course ID</string>
+    <string name="course_name">Course Name</string>
+    <string name="main_instructor">Main Instructor</string>
+    <string name="status_attending">Status : Attending</string>
+    <string name="title_activity_instructor_couress">InstructorCouress</string>
+    <string name="title_activity_fasfasd">fasfasd</string>
 
 
 </resources>

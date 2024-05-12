@@ -9,19 +9,26 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.huseyinemreseyrek.courseassistantapp.databinding.ActivityRegisterBinding
 
 
 class Register : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
+        firestore = Firebase.firestore
         auth = Firebase.auth
         binding.studentIdTextInputLayout.isEndIconVisible = false
         binding.emailTextInputLayout.isEndIconVisible = false
@@ -123,19 +130,6 @@ class Register : AppCompatActivity() {
 
     }
 
-    private fun createPerson() : Person { //Gerekli bilgilerle person objesi olusturuyor.
-        val name = binding.nameText.text.toString()
-        val surname = binding.surnameText.text.toString()
-        val email = binding.emailText.text.toString()
-        if(checkEmail() == 1){
-            val studentID = binding.studentID.text.toString()
-            return Person(name,surname,email,"Student",studentID)
-        }
-        else{
-            return Person(name,surname,email,"Instructor", studentID = "0" )
-        }
-
-    }
 
     private fun checkEmail(): Int{ //email dogru mu degil mi kontrolu yapiyor, ayrica hangi accountType'da hesap aciliyor onu kontrol ediyor
         var error: String? = null
@@ -210,9 +204,13 @@ class Register : AppCompatActivity() {
             //firebase'de email sifre hesap acma islemleri.
             auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{task ->
                 if(task.isSuccessful){
-                    val person = createPerson()
-                    SharedPreferencesClass.saveObject(applicationContext, email, person )
                     sendEmailVerification()
+                    if(binding.emailText.text.toString().endsWith("@std.yildiz.edu.tr")){
+                        saveStudent()
+                    }
+                    else{
+                        saveInstructor()
+                    }
                     println("Basarili kayit")
                     finish() //register intentini kapatiyoruz.
                 }else{
@@ -229,6 +227,88 @@ class Register : AppCompatActivity() {
             Toast.makeText(this,"Enter all informations correctly",Toast.LENGTH_SHORT).show()
             false
         }
+
+
+    }
+    private fun saveStudent(){
+        val userMap = hashMapOf<String,Any>()
+        userMap.put("name",binding.nameText.text.toString())
+        userMap.put("surname",binding.surnameText.text.toString())
+        userMap.put("email",binding.emailText.text.toString())
+        userMap.put("accountType","Student")
+        userMap.put("studentID",binding.studentID.text.toString())
+        userMap.put("downloadUrl","")
+        userMap.put("educationalInfo","")
+        userMap.put("phoneNumber","")
+        userMap.put("instagramAdress","")
+        userMap.put("twitterAdress","")
+
+        userMap.put("RegisteredCourses" ,emptyList<Map<String, Any>>() )
+        firestore.collection("Students")
+            .document(binding.emailText.text.toString())
+            .set(userMap)
+            .addOnSuccessListener {
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this@Register, exception.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+    }
+    private fun saveInstructor(){
+        val userMap = hashMapOf<String,Any>()
+        userMap.put("name",binding.nameText.text.toString())
+        userMap.put("surname",binding.surnameText.text.toString())
+        userMap.put("email",binding.emailText.text.toString())
+        userMap.put("accountType","Instructor")
+        userMap.put("downloadUrl","")
+        userMap.put("educationalInfo","")
+        userMap.put("phoneNumber","")
+        userMap.put("instagramAdress","")
+        userMap.put("twitterAdress","")
+        /*val courses = mapOf(
+            "BLM520" to mapOf(
+                "courseName" to "Mobile Programming",
+                "mainInstructor" to "Amac hoca",
+                "courseID" to "BLM520",
+                "group" to "1",
+                "status" to "Attending"
+            ),
+            "BLM521" to mapOf(
+                "courseName" to "Selamlar",
+                "mainInstructor" to "MFA",
+                "courseID" to "BLM521",
+                "group" to "2",
+                "status" to "Attending"
+            )
+        )
+        userMap["RegisteredCourses"] = courses //kurslarin tipi*/
+        userMap.put("RegisteredCourses" ,emptyList<Map<String, Any>>() )
+        firestore.collection("Instructors")
+            .document(binding.emailText.text.toString())
+            .set(userMap)
+            .addOnSuccessListener {
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this@Register, exception.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+
+        /*val newCourse = mapOf(
+            "BLM522" to mapOf(
+                "courseName" to "Mobile Programming2",
+                "mainInstructor" to "Oya",
+                "courseID" to "BLM522",
+                "group" to "2",
+                "status" to "Attending"
+            )
+        )
+        firestore.collection("Instructors").document(binding.emailText.text.toString())
+            .set(mapOf("RegisteredCourses" to newCourse), SetOptions.merge())
+            .addOnSuccessListener {
+                println("New course added successfully!")
+            }
+            .addOnFailureListener { e ->
+                println("Error adding new course: $e")
+            } //yeni kurs ekleme*/
+
 
 
     }

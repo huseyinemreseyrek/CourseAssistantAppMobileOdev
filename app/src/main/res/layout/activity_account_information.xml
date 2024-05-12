@@ -60,7 +60,7 @@
                     android:id="@+id/educationalInformationAutoCompleteTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/email_information"
+                    android:hint="@string/educational_info"
                     android:inputType="none"
                     android:textCursorDrawable="@null"
                     tools:ignore="SpeakableTextPresentCheck" />
@@ -193,5 +193,18 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.ProgressBar.Small"
+        android:layout_width="54dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView"
+        app:layout_constraintStart_toStartOf="@+id/scrollView"
+        app:layout_constraintTop_toTopOf="@+id/scrollView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
