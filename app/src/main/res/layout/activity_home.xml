@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".HomeActivity">
+
+  <TextView
+      android:id="@+id/nameTextView"
+      android:layout_width="264dp"
+      android:layout_height="37dp"
+      android:layout_marginTop="5dp"
+      android:background="#8BC34A"
+      android:backgroundTint="#8BC34A"
+      android:gravity="center"
+      android:text="@string/name"
+      android:textSize="16sp"
+      app:layout_constraintStart_toStartOf="@+id/emailTextView"
+      app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+
+  <TextView
+      android:id="@+id/instagramTextView"
+      android:layout_width="183dp"
+      android:layout_height="40dp"
+      android:background="#8BC34A"
+      android:backgroundTint="#8BC34A"
+      android:gravity="center"
+      android:text="@string/instagram_adress"
+      android:textSize="16sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/profilfotosu" />
+
+  <TextView
+      android:id="@+id/twitterTextView"
+      android:layout_width="183dp"
+      android:layout_height="40dp"
+      android:layout_marginStart="5dp"
+      android:background="#8BC34A"
+      android:backgroundTint="#8BC34A"
+      android:gravity="center"
+      android:text="@string/twitter_adress"
+      android:textSize="16sp"
+      app:layout_constraintStart_toEndOf="@+id/instagramTextView"
+      app:layout_constraintTop_toTopOf="@+id/instagramTextView" />
+
+  <TextView
+      android:id="@+id/phoneTextView"
+      android:layout_width="124dp"
+      android:layout_height="43dp"
+      android:layout_marginStart="5dp"
+      android:background="#8BC34A"
+      android:backgroundTint="#8BC34A"
+      android:gravity="center"
+      android:onClick="clickPhoneNumber"
+      android:text="@string/phone_number"
+      android:textColor="#218BDF"
+      android:textColorHighlight="#2196F3"
+      android:textSize="16sp"
+      app:layout_constraintStart_toEndOf="@+id/educationalInfoTextView"
+      app:layout_constraintTop_toTopOf="@+id/educationalInfoTextView" />
+
+  <TextView
+      android:id="@+id/emailTextView"
+      android:layout_width="227dp"
+      android:layout_height="38dp"
+      android:layout_marginTop="5dp"
+      android:background="#8BC34A"
+      android:backgroundTint="#8BC34A"
+      android:gravity="center"
+      android:onClick="openOutlook"
+      android:text="@string/e_mail"
+      android:textColor="#218BDF"
+      android:textSize="16sp"
+      app:layout_constraintStart_toEndOf="@+id/profilfotosu"
+      app:layout_constraintTop_toBottomOf="@+id/educationalInfoTextView" />
+
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/homeActivityToolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      android:elevation="4dp"
+      android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+      app:layout_constraintTop_toTopOf="parent"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+  <ImageView
+      android:id="@+id/profilfotosu"
+      android:layout_width="125dp"
+      android:layout_height="159dp"
+      android:contentDescription="@string/profil_fotosu"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/homeActivityToolbar"
+      app:srcCompat="@drawable/avatar" />
+
+
+
+  <TextView
+      android:id="@+id/educationalInfoTextView"
+      android:layout_width="124dp"
+      android:layout_height="43dp"
+      android:layout_marginTop="15dp"
+      android:background="#8BC34A"
+      android:backgroundTint="#8BC34A"
+      android:gravity="center"
+      android:text="@string/educational_info"
+      android:textSize="16sp"
+      app:layout_constraintStart_toEndOf="@+id/profilfotosu"
+      app:layout_constraintTop_toTopOf="@+id/profilfotosu" />
+
+  <Button
+      android:id="@+id/courseButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:onClick="goCourses"
+      android:text="Courses"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+</androidx.constraintlayout.widget.ConstraintLayout>
