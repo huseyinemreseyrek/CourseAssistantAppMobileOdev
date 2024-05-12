@@ -161,13 +161,17 @@ class InstructorCourses : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        if(item.itemId == R.id.add_course){
-            val intent = Intent(this@InstructorCourses, AddCourse::class.java)
-            intent.putExtra("email",userEmail)
-            startActivity(intent)
+        if(!userEmail.endsWith("@std.yildiz.edu.tr")){
+            if(item.itemId == R.id.add_course){
+                val intent = Intent(this@InstructorCourses, AddCourse::class.java)
+                intent.putExtra("email",userEmail)
+                startActivity(intent)
+            }
         }
-        else if(item.itemId == R.id.sign_out){
+        else{
+            Toast.makeText(this, "You are not an instructor", Toast.LENGTH_SHORT).show()
+        }
+        if(item.itemId == R.id.sign_out){
             auth.signOut()
             val intent = Intent(this,Login::class.java)
             startActivity(intent)
