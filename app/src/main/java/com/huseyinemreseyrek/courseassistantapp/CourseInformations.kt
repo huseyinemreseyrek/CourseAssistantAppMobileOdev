@@ -4,13 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.Timestamp
@@ -20,10 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.huseyinemreseyrek.courseassistantapp.databinding.ActivityCourseInformationsBinding
-import com.huseyinemreseyrek.courseassistantapp.databinding.ActivityInstructorCoursesBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
-import kotlin.properties.Delegates
 
 //grup numarasi
 
@@ -42,7 +39,7 @@ class CourseInformations : AppCompatActivity() {
     private var totalAttendingStudents = 0
     private lateinit var users : ArrayList<String>
     private lateinit var groupNames : ArrayList<String>
-
+    private lateinit var date2 : Timestamp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +67,21 @@ class CourseInformations : AppCompatActivity() {
         println("Course Informations4")
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.course_informations_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if(item.itemId == R.id.clasroom){
+
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun timestampToDateString(timestamp: Timestamp): String {
         val date = timestamp.toDate()
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
@@ -77,8 +89,14 @@ class CourseInformations : AppCompatActivity() {
     }
 
     private fun getData() {
+        var collection = ""
+        collection = if(userEmail.endsWith("@std.yildiz.edu.tr")){
+            "Students"
+        } else{
+            "Instructors"
+        }
         println("Course Informations5")
-        val userEmailDocRef = db.collection("Instructors").document(userEmail)
+        val userEmailDocRef = db.collection(collection).document(userEmail)
         val coursesDocRef = db.collection("Courses").document(courseID)
         val userEmailTask = userEmailDocRef.get()
         val coursesTask = coursesDocRef.get()
@@ -91,11 +109,13 @@ class CourseInformations : AppCompatActivity() {
                     println("User data fetched")
                     val registeredCourses = userDocument.get("RegisteredCourses") as? Map<String, Map<String, Any>>
                     val registeredCourse = registeredCourses?.get(courseID)
-                    courseName = registeredCourse?.get("courseID")?.toString() ?: "N/A"
+                    courseName = registeredCourse?.get("courseName")?.toString() ?: "N/A"
+                    println(courseName)
                     mainInstructor = registeredCourse?.get("mainInstructor")?.toString() ?: "N/A"
                     groupNumber = registeredCourse?.get("group")?.toString() ?: "N/A"
                     status = registeredCourse?.get("status")?.toString() ?: "N/A"
                     date = registeredCourse?.get("date")?.let { timestampToDateString(it as Timestamp) } ?: "N/A"
+                    date2 = (registeredCourse?.get("date") as? Timestamp)!!
                 } else {
                     println("User document does not exist.")
                 }
@@ -248,6 +268,7 @@ class CourseInformations : AppCompatActivity() {
             intent.putExtra("mainInstructor",mainInstructor)
             intent.putExtra("courseName",courseName)
             intent.putExtra("status",status)
+            intent.putExtra("date",date2.seconds)
             startActivity(intent)
         }
     }

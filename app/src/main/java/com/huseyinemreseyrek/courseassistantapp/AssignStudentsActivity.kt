@@ -19,6 +19,7 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.SetOptions
 import com.huseyinemreseyrek.courseassistantapp.databinding.ActivityAssignStudentsBinding
 import com.huseyinemreseyrek.courseassistantapp.databinding.ActivityCourseInformationsBinding
@@ -40,6 +41,7 @@ class AssignStudentsActivity : AppCompatActivity() {
     private lateinit var mainInstructor : String
     private lateinit var courseName : String
     private lateinit var status : String
+    private lateinit var date : Timestamp
     private var REQUEST_CODE = 100
     private val list = mutableListOf<Pair<String, String>>()
 
@@ -56,6 +58,13 @@ class AssignStudentsActivity : AppCompatActivity() {
         mainInstructor = intent.getStringExtra("mainInstructor").toString()
         courseName = intent.getStringExtra("courseName").toString()
         status = intent.getStringExtra("status").toString()
+        val timestampSeconds = intent.getLongExtra("date",-1)
+        if (timestampSeconds != -1L) {
+            date = Timestamp(timestampSeconds, 0)
+            Log.d("TargetActivity", "Received Timestamp: ${date.toDate()}")
+        } else {
+            Log.d("TargetActivity", "No Timestamp received")
+        }
 
 
     }
@@ -129,7 +138,8 @@ class AssignStudentsActivity : AppCompatActivity() {
                                 "mainInstructor" to mainInstructor,
                                 "courseID" to courseID,
                                 "group" to groupNumber,
-                                "status" to status
+                                "status" to status,
+                                "date" to date
                             )
                         )
                         db.collection(collectionPath).document(tempUserEmail)
@@ -180,7 +190,8 @@ class AssignStudentsActivity : AppCompatActivity() {
                                     "mainInstructor" to mainInstructor,
                                     "courseID" to courseID,
                                     "group" to groupNumber,
-                                    "status" to status
+                                    "status" to status,
+                                    "date" to date
                                 )
                             )
                             db.collection("Students").document(email)

@@ -67,8 +67,15 @@ class InstructorCourses : AppCompatActivity() {
 
 
     private fun prepareCourses() {
+        var collection = ""
+        if(userEmail.endsWith("@std.yildiz.edu.tr")){
+            collection = "Students"
+        }
+        else{
+            collection = "Instructors"
+        }
         println("kontrol1")
-        db.collection("Instructors").document(userEmail)
+        db.collection(collection).document(userEmail)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
@@ -161,15 +168,15 @@ class InstructorCourses : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(!userEmail.endsWith("@std.yildiz.edu.tr")){
-            if(item.itemId == R.id.add_course){
-                val intent = Intent(this@InstructorCourses, AddCourse::class.java)
-                intent.putExtra("email",userEmail)
-                startActivity(intent)
+        if(item.itemId == R.id.add_course){
+            if(!userEmail.endsWith("@std.yildiz.edu.tr")){
+                    val intent = Intent(this@InstructorCourses, AddCourse::class.java)
+                    intent.putExtra("email",userEmail)
+                    startActivity(intent)
             }
-        }
-        else{
-            Toast.makeText(this, "You are not an instructor", Toast.LENGTH_SHORT).show()
+            else{
+                Toast.makeText(this, "You are not an instructor", Toast.LENGTH_SHORT).show()
+            }
         }
         if(item.itemId == R.id.sign_out){
             auth.signOut()
