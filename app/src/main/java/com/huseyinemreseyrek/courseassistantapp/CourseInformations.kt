@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.Timestamp
@@ -61,6 +62,8 @@ class CourseInformations : AppCompatActivity() {
             binding.deleteStudent.visibility = View.GONE
             binding.deleteCourseButton.visibility = View.GONE
         }
+        val toolbar: Toolbar = binding.toolbar55
+        setSupportActionBar(toolbar)
 
         println("Course Informations3")
 
@@ -69,17 +72,29 @@ class CourseInformations : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = menuInflater
         menuInflater.inflate(R.menu.course_informations_menu,menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    /*override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if(userEmail.endsWith("@std.yildiz.edu.tr")){
+            val item = menu?.findItem(R.id.createPoll)
+            item?.isVisible = false
+
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }*/
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if(item.itemId == R.id.clasroom){
-
+            val intent = Intent(this@CourseInformations,Classroom::class.java)
+            intent.putExtra("email",userEmail)
+            startActivity(intent)
         }
 
-        if(item.itemId == R.id.createPoll){
+        else if(item.itemId == R.id.createPoll){
             val intent = Intent(this@CourseInformations, CreatePoll::class.java)
             intent.putExtra("email",userEmail)
             startActivity(intent)
