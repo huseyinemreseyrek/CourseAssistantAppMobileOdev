@@ -77,14 +77,14 @@ class CourseInformations : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    /*override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         if(userEmail.endsWith("@std.yildiz.edu.tr")){
             val item = menu?.findItem(R.id.createPoll)
             item?.isVisible = false
 
         }
         return super.onPrepareOptionsMenu(menu)
-    }*/
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
@@ -263,6 +263,7 @@ class CourseInformations : AppCompatActivity() {
             val intent = Intent(this, ShowStudentsActivityInstructor::class.java)
             intent.putExtra("userEmail", userEmail)
             intent.putExtra("courseID", courseID)
+            selectedGroup = groupNumber
             intent.putExtra("selectedGroup", selectedGroup)
             startActivity(intent)
         }

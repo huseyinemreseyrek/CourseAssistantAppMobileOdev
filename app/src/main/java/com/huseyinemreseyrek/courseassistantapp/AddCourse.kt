@@ -133,6 +133,7 @@ class AddCourse : AppCompatActivity() {
 
         Tasks.whenAllSuccess<Any>(tasks).addOnSuccessListener {
             println("All tasks completed successfully")
+            
             val newCourse = mapOf(
                 courseID to mapOf(
                     "courseName" to binding.courseNameEditText.text.toString(),
