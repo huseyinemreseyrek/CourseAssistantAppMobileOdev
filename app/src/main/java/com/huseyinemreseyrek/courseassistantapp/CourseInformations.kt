@@ -79,6 +79,12 @@ class CourseInformations : AppCompatActivity() {
 
         }
 
+        if(item.itemId == R.id.createPoll){
+            val intent = Intent(this@CourseInformations, CreatePoll::class.java)
+            intent.putExtra("email",userEmail)
+            startActivity(intent)
+        }
+
         return super.onOptionsItemSelected(item)
     }
 

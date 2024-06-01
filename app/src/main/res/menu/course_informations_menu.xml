@@ -4,5 +4,8 @@
     <item
         android:id="@+id/clasroom"
         android:title="Clasroom" />
+    <item
+        android:id="@+id/createPoll"
+        android:title="Create Poll" />
 
 </menu>
