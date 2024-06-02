@@ -97,6 +97,7 @@ class CourseInformations : AppCompatActivity() {
             val intent = Intent(this@CourseInformations,ClassroomActivity::class.java)
             intent.putExtra("userEmail",userEmail)
             intent.putExtra("courseID",courseID)
+            intent.putExtra("totalGroupNumber",totalGroupNumbers)
             startActivity(intent)
         }
 

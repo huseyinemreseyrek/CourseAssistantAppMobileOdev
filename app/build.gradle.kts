@@ -7,7 +7,9 @@ plugins {
 android {
     namespace = "com.huseyinemreseyrek.courseassistantapp"
     compileSdk = 34
-
+    packagingOptions{
+        exclude("META-INF/DEPENDENCIES")
+    }
     defaultConfig {
         applicationId = "com.huseyinemreseyrek.courseassistantapp"
         minSdk = 24
@@ -60,6 +62,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.7.7")
     implementation("androidx.activity:activity:1.8.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("com.android.volley:volley:1.2.1")
 
 
     testImplementation("junit:junit:4.13.2")
@@ -73,6 +76,12 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation ("com.google.firebase:firebase-messaging:24.0.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+
+    implementation ("com.google.android.gms:play-services-tasks:18.2.0")
+
+
 
 
 

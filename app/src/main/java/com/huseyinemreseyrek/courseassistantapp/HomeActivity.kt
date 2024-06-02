@@ -162,7 +162,22 @@ class HomeActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+    //HomeActivity.kt
+    fun goAttendance(view: View) {
+        if(user.accountType == "Instructor"){
+            val intent = Intent(this,AttendanceInstructor::class.java).apply{
+                putExtra("userEmail",user.email)
+            }
+            startActivity(intent)
+        }
+        else{
+            val intent = Intent(this,AttendanceStudent::class.java).apply{
+                putExtra("userEmail",user.email)
+            }
+            startActivity(intent)
+        }
 
+    }
 
     fun goCourses(view: View) {
 

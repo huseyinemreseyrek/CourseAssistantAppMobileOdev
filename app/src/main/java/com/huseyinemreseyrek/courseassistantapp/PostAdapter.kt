@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huseyinemreseyrek.courseassistantapp.databinding.LayoutPostListItemBinding
 
-class PostAdapter(private val postList: List<Post> , private val userEmail: String, private val courseID : String) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter(private val postList: List<Post> , private val userEmail: String, private val totalGroupNumber : String, private val courseID : String, private var notificationState : Boolean) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     class PostViewHolder(val binding : LayoutPostListItemBinding) : RecyclerView.ViewHolder(binding.root){
 
     }
@@ -15,7 +15,10 @@ class PostAdapter(private val postList: List<Post> , private val userEmail: Stri
         val binding = LayoutPostListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostViewHolder(binding)
     }
-
+    fun updateNotificationStatus(newNotificationStatus: Boolean) {
+        notificationState = newNotificationStatus
+        notifyDataSetChanged()
+    }
     override fun onBindViewHolder(holder: PostAdapter.PostViewHolder, position: Int) {
         val post = postList[position]
 
@@ -43,6 +46,8 @@ class PostAdapter(private val postList: List<Post> , private val userEmail: Stri
                 putExtra("postMainText",post.getMainText())
                 putExtra("postEmail",post.getEmail())
                 putExtra("postCommentNumber",post.getCommentNumber())
+                putExtra("notificationState",notificationState)
+                putExtra("totalGroupNumber",totalGroupNumber)
             }
             context.startActivity(intent)
         }

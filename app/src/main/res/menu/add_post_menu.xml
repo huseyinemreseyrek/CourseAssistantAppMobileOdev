@@ -8,5 +8,10 @@
         android:title="Add Post"
         android:orderInCategory="100"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/notifications"
+        android:icon="@drawable/notnotification"
+        android:title="Notification State"
+        app:showAsAction="always" />
 
 </menu>

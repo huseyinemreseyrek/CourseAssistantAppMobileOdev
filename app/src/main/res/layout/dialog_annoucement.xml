@@ -22,9 +22,5 @@
             android:gravity="top" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <CheckBox
-        android:id="@+id/checkBoxSendNotification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Send Notification" />
+
 </LinearLayout>

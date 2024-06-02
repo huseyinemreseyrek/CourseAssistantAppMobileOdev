@@ -2,6 +2,8 @@ package com.huseyinemreseyrek.courseassistantapp
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.Looper
+import android.os.StrictMode
 import android.util.Log
 import android.view.ViewTreeObserver
 import android.widget.Toast
@@ -10,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -17,6 +21,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.huseyinemreseyrek.courseassistantapp.databinding.ActivityCommentsBinding
 import com.huseyinemreseyrek.courseassistantapp.databinding.ActivityInstructorCoursesBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -33,6 +40,10 @@ class CommentsActivity : AppCompatActivity() {
     private lateinit var userNameSurname : String
     private lateinit var postNameSurname: String
     private lateinit var commentNumber : String
+    private var notificationState : Boolean = false
+    private lateinit var studentsList : ArrayList<String>
+    private lateinit var totalGroupNumber : String
+    private lateinit var notificationText : String
 
 
 
@@ -51,7 +62,10 @@ class CommentsActivity : AppCompatActivity() {
         println(courseID)
         postNameSurname = intent.getStringExtra("postNameSurname")!!
         commentNumber = intent.getStringExtra("postCommentNumber")!!
+        totalGroupNumber = intent.getStringExtra("totalGroupNumber")!!
+
         println(postNameSurname)
+        notificationState = intent.getBooleanExtra("notificationState",false)
         binding.main.viewTreeObserver.addOnGlobalLayoutListener {
             object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
@@ -76,6 +90,9 @@ class CommentsActivity : AppCompatActivity() {
 
         binding.sendComment.setOnClickListener {
             saveComment()
+            if(!userEmail.endsWith("@std.yildiz.edu.tr")){
+                sendNotificationToStudents(intent.getStringExtra("postMainText")!!)
+            }
         }
 
         commentList = ArrayList()
@@ -83,7 +100,73 @@ class CommentsActivity : AppCompatActivity() {
         recyclerViewCommentsAdapter = RecyclerViewCommentsAdapter(commentList)
         binding.commentsRecyclerView.adapter = recyclerViewCommentsAdapter
         fetchComments()
+        if(!userEmail.endsWith("@std.yildiz.edu.tr")){
+            studentsList = ArrayList()
+            fetchEmailList()
+            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+        }
 
+
+    }
+    private fun sendNotificationToStudents(announcementText: String) {
+        val studentsCollection = Firebase.firestore.collection("Students")
+        val handler = android.os.Handler(Looper.getMainLooper())
+        GlobalScope.launch(Dispatchers.IO) {
+            for (email in studentsList) {
+                studentsCollection.document(email).get().addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val token = document.getString("token")
+                        var name = document.getString("name")
+                        if (token != null) {
+                            handler.postDelayed({
+                                val notificationsSender = SendNotification(token, "$userNameSurname - $courseID", notificationText, this@CommentsActivity)
+                                notificationsSender.SendNotifications()
+                            }, 300)
+
+                        }
+                    }
+                }.addOnFailureListener { e ->
+                    Log.e("FCM", "Error getting document: $e")
+                }
+            }
+        }
+    }
+
+    private fun fetchEmailList() {
+        val tasks = mutableListOf<Task<*>>()
+        for (i in 1..totalGroupNumber.toInt()) {
+            val groupName = "Group$i"
+            val groupRef = db.collection("Courses").document(courseID).collection(groupName)
+            val task = groupRef.get().addOnSuccessListener { snapshot ->
+                if (!snapshot.isEmpty) {
+                    snapshot.documents.forEach { document ->
+                        val documentName = document.id
+                        if (documentName.endsWith("@std.yildiz.edu.tr")) {
+                            if (groupName == "Group") {
+
+                                studentsList.add(documentName)
+                            } else {
+
+                                studentsList.add(documentName)
+                            }
+                        }
+                    }
+                } else {
+                    println("No documents found in $groupName")
+                }
+            }.addOnFailureListener{
+                println("Failed to fetch documents for $groupName: ${it.message}")
+            }
+            tasks.add(task)
+        }
+        Tasks.whenAll(tasks).addOnCompleteListener {
+            if (it.isSuccessful) {
+                println(studentsList)
+            } else {
+                println("Error fetching documents: ${it.exception?.message}")
+            }
+        }
     }
 
     private fun fetchCommentNumber() {
@@ -112,6 +195,7 @@ class CommentsActivity : AppCompatActivity() {
 
     private fun saveComment() {
         val commentText = binding.commentInput.text.toString()
+        notificationText = commentText
         if(commentText.isNotEmpty()){
             val comment = hashMapOf(
                 "date" to Date(),
