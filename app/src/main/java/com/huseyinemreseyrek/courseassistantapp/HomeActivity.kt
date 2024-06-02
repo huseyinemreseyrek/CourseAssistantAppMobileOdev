@@ -38,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
         getData()
 
         setSupportActionBar(binding.homeActivityToolbar)
-        binding.homeActivityToolbar.title = "Abcd"
+        binding.homeActivityToolbar.title = "Account Information"
 
         auth = Firebase.auth
         
