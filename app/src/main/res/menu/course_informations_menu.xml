@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/clasroom"
-        android:title="Clasroom" />
+        android:title="Clasroom"
+        android:actionLayout="@layout/menu_item_layout"
+        android:icon="@drawable/clasroom"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/createPoll"
-        android:title="Create Poll" />
+        android:title="Create Poll"
+        android:icon="@drawable/poll"
+        android:actionLayout="@layout/menu_item_layout"
+        app:showAsAction="ifRoom" />
 
 </menu>

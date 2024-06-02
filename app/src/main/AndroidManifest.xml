@@ -22,14 +22,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+
         <activity
-            android:name=".Classroom"
+            android:name=".CommentsActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            />
+        <activity
+            android:name=".ClassroomActivity"
             android:exported="false" />
         <activity
             android:name=".CreatePoll"
-            android:exported="false" />
-        <activity
-            android:name=".StudentCourseInformations"
             android:exported="false" />
         <activity
             android:name=".DeleteStudentActivity"
@@ -49,22 +52,12 @@
         <activity
             android:name=".CourseInformations"
             android:exported="false" />
-        <activity
-            android:name=".fasfasd"
-            android:exported="false"
-            android:label="@string/title_activity_fasfasd"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".asdasd"
-            android:exported="false" />
+
+
         <activity
             android:name=".InstructorCourses"
             android:exported="false" />
-        <activity
-            android:name=".InstructorCouress"
-            android:exported="false"
-            android:label="@string/title_activity_instructor_couress"
-            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".AddInstructorToCourse"
             android:exported="false" />

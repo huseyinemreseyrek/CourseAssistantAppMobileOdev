@@ -7,16 +7,25 @@ class Post {
     private var commentNumber : String = ""
     private var mainText : String = ""
     private var nameSurname : String = ""
+    private var documentId : String = ""
 
     constructor()
 
-    constructor(date : String, email : String, commentNumber : String, mainText : String, nameSurname : String){
+    constructor(date : String, email : String, commentNumber : String, mainText : String, nameSurname : String, documentId : String){
         this.date = date
         this.email = email
         this.commentNumber = commentNumber
         this.mainText = mainText
         this.nameSurname = nameSurname
+        this.documentId = documentId
     }
+    fun getDocumentId() : String{
+        return this.documentId
+    }
+    fun setDocumentId(documentId : String){
+        this.documentId = documentId
+        }
+
     fun getDate() : String{
         return this.date
     }

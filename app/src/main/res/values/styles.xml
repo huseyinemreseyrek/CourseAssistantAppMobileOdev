@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+<resources>
 
-</style></resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    </style>
+
+    <style name="CustomToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/toolbar_title_color</item>
+        <item name="colorControlNormal">@color/toolbar_icon_color</item>
+        <item name="colorControlActivated">@color/toolbar_icon_color</item>
+    </style>
+
+    <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/popup_background</item>
+        <item name="android:textColor">@color/popup_text_color</item>
+    </style>
+
+</resources>

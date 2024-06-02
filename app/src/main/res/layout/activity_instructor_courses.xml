@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InstructorCourses">
+    tools:context=".InstructorCourses"
+    android:background="#FFFFF0"
+    >
 
 
     <androidx.appcompat.widget.Toolbar
@@ -12,10 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="0dp"
-        android:background="?attr/colorPrimary"
+        android:background="#FFFFF0"
         android:elevation="5dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Courses"
+        app:titleTextColor="@color/black"
+        android:theme="@style/CustomToolbarTheme"
+        app:popupTheme="@style/PopupMenuStyle"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_filter"
         tools:layout_editor_absoluteX="16dp" />
@@ -24,7 +28,7 @@
         android:id = "@+id/coursesList"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:background="?attr/colorPrimary"
+        android:background="#FFFFF0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

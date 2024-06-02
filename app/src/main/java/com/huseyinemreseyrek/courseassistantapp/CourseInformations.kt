@@ -2,15 +2,18 @@ package com.huseyinemreseyrek.courseassistantapp
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.Timestamp
@@ -74,6 +77,8 @@ class CourseInformations : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.course_informations_menu,menu)
+
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -89,14 +94,15 @@ class CourseInformations : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if(item.itemId == R.id.clasroom){
-            val intent = Intent(this@CourseInformations,Classroom::class.java)
-            intent.putExtra("email",userEmail)
+            val intent = Intent(this@CourseInformations,ClassroomActivity::class.java)
+            intent.putExtra("userEmail",userEmail)
+            intent.putExtra("courseID",courseID)
             startActivity(intent)
         }
 
         else if(item.itemId == R.id.createPoll){
             val intent = Intent(this@CourseInformations, CreatePoll::class.java)
-            intent.putExtra("email",userEmail)
+            intent.putExtra("userEmail",userEmail)
             startActivity(intent)
         }
 
