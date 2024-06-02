@@ -3,6 +3,7 @@ package com.huseyinemreseyrek.courseassistantapp
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -289,6 +290,28 @@ class Register : AppCompatActivity() {
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this@Register, exception.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+        val dataRef = firestore.collection("Attendance").document(binding.emailText.text.toString())
+        val initialData = hashMapOf<String, Any>() // Boş bir veri haritası
+
+        dataRef.set(initialData)
+            .addOnSuccessListener {
+                Log.d("Firestore", "DocumentSnapshot successfully written!")
+
+                // İsteğe bağlı: Boş belge oluşturduktan sonra Attendances koleksiyonunu ekleyin
+                val attendanceData = hashMapOf<String, Any>() // Boş bir veri haritası
+
+                dataRef.collection("Attendances")
+                    .add(attendanceData)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d("Firestore", "DocumentSnapshot added with ID: ${documentReference.id}")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("Firestore", "Error adding document", e)
+                    }
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error writing document", e)
             }
 
         /*val newCourse = mapOf(
