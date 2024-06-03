@@ -156,15 +156,26 @@
         app:layout_constraintTop_toBottomOf="@+id/showInstructorsButton" />
 
     <Button
+        android:id="@+id/showPolls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:onClick="showPolls"
+        android:text="Show Polls"
+        app:layout_constraintEnd_toEndOf="@+id/showStudentsButton"
+        app:layout_constraintStart_toStartOf="@+id/showStudentsButton"
+        app:layout_constraintTop_toBottomOf="@+id/showStudentsButton" />
+
+    <Button
         android:id="@+id/assignStudentsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:onClick="assignStudents"
         android:text="Assign Students"
-        app:layout_constraintEnd_toEndOf="@+id/showStudentsButton"
-        app:layout_constraintStart_toStartOf="@+id/showStudentsButton"
-        app:layout_constraintTop_toBottomOf="@+id/showStudentsButton" />
+        app:layout_constraintEnd_toEndOf="@+id/showPolls"
+        app:layout_constraintStart_toStartOf="@+id/showPolls"
+        app:layout_constraintTop_toBottomOf="@+id/showPolls" />
 
     <Button
         android:id="@+id/deleteStudent"

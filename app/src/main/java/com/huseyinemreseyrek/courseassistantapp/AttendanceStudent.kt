@@ -76,7 +76,7 @@ class AttendanceStudent : AppCompatActivity() {
     private lateinit var currCourseGroup: ArrayList<String>
     private var index: Int = 0
     private var wifiName: String? = ""
-    private var validWifiName = "\"FiberHGW_ZTZZE6_2.4GHz\""
+    private var validWifiName = "\"EDUROAM\""
     private var stdId: String = ""
     private var ATTENDANCE_PERMISSION_THRESHOLD_MINUTES:Long = 10
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -383,10 +383,16 @@ class AttendanceStudent : AppCompatActivity() {
     private fun isWithinDesignatedArea(location: Location): Boolean {
         val lat = location.latitude
         val lng = location.longitude
-        val topLeft = LatLng(41.034248, 28.892185)
-        val topRight = LatLng(41.034210, 28.892733)
-        val bottomRight = LatLng(41.033709, 28.892995)
-        val bottomLeft = LatLng(41.033621, 28.892474)
+
+        //val topLeft = LatLng(41.028655, 28.891026)
+        //val topRight = LatLng(41.028301, 28.891377)
+        //val bottomRight = LatLng(41.027773, 28.890663)
+        //val bottomLeft = LatLng(41.028015, 28.889972)
+
+        val topLeft = LatLng(41.028514, 28.890980)
+        val topRight = LatLng(41.028336, 28.891222)
+        val bottomRight = LatLng(41.028018, 28.890638)
+        val bottomLeft = LatLng(41.028183, 28.890285)
 
         val minLat = minOf(topLeft.latitude, topRight.latitude, bottomRight.latitude, bottomLeft.latitude)
         val maxLat = maxOf(topLeft.latitude, topRight.latitude, bottomRight.latitude, bottomLeft.latitude)

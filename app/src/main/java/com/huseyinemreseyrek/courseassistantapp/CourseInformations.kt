@@ -103,7 +103,9 @@ class CourseInformations : AppCompatActivity() {
 
         else if(item.itemId == R.id.createPoll){
             val intent = Intent(this@CourseInformations, CreatePoll::class.java)
-            intent.putExtra("userEmail",userEmail)
+            intent.putExtra("email",userEmail)
+            intent.putExtra("courseID", courseID)
+            intent.putExtra("group", groupNumber)
             startActivity(intent)
         }
 
@@ -376,7 +378,13 @@ class CourseInformations : AppCompatActivity() {
         }
     }
 
-
+    fun showPolls(view : View){
+        val intent = Intent(this, ShowPolls::class.java)
+        intent.putExtra("userEmail", userEmail)
+        intent.putExtra("courseID", courseID)
+        intent.putExtra("group", groupNumber)
+        startActivity(intent)
+    }
 
     private fun updateUserDocuments(): Task<Void> {
         val tasks = mutableListOf<Task<*>>()

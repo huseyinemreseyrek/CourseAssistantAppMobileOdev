@@ -76,6 +76,15 @@
         <activity
             android:name=".AddCourse"
             android:exported="false" />
+        <activity
+            android:name=".RecyclerViewShowPollsAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".SelectedPoll"
+            android:exported="false" />
+        <activity
+            android:name=".ShowPolls"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

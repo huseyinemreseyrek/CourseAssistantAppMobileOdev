@@ -72,7 +72,7 @@
         android:text="Start Attendance"
         android:visibility="visible"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="-220dp"
+        android:layout_marginStart="-200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/downloadCSV" />
@@ -84,7 +84,7 @@
         android:text="Stop Attendance"
         android:visibility="visible"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="160dp"
+        android:layout_marginStart="190dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/downloadCSV" />
