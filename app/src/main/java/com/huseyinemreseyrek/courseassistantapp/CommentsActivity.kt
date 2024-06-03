@@ -73,7 +73,7 @@ class CommentsActivity : AppCompatActivity() {
                     binding.main.getWindowVisibleDisplayFrame(r)
                     val screenHeight = binding.main.rootView.height
                     val keypadHeight = screenHeight - r.bottom
-                    if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+                    if (keypadHeight > screenHeight * 0.15) {
                         binding.commentSection.setPadding(0, 0, 0, keypadHeight)
 
                     } else {

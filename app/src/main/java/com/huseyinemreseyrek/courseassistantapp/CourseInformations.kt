@@ -340,7 +340,7 @@ class CourseInformations : AppCompatActivity() {
             tasks.add(task)
         }
 
-        // Tüm alt koleksiyonlar ve belgeler silindikten sonra ana belgeyi sil
+
         Tasks.whenAll(tasks).continueWithTask {
             if (it.isSuccessful) {
                 courseDocRef.delete()
@@ -391,7 +391,7 @@ class CourseInformations : AppCompatActivity() {
         var remainingUpdates = users.size
 
         if (remainingUpdates == 0) {
-            return Tasks.forResult(null) // Eğer güncellenecek kullanıcı yoksa, işlemi hemen tamamla
+            return Tasks.forResult(null)
         }
 
         for (email in users) {
@@ -419,7 +419,7 @@ class CourseInformations : AppCompatActivity() {
             tasks.add(task)
         }
 
-        return Tasks.whenAll(tasks) // Tüm güncelleme görevlerinin tamamlanmasını bekle
+        return Tasks.whenAll(tasks)
     }
 
     private fun fetchAllEmails(): Task<Void> {

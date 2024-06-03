@@ -113,20 +113,22 @@
           android:textSize="16sp"
           android:layout_below="@id/profilfotosu"
           android:layout_alignParentStart="true"
+
           android:layout_marginTop="16dp" />
 
       <TextView
           android:id="@+id/twitterTextView"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_below="@+id/profilfotosu"
+          android:layout_alignStart="@+id/profilfotosu"
+          android:layout_marginStart="135dp"
+          android:layout_marginTop="17dp"
           android:background="#8BC34A"
           android:backgroundTint="#8BC34A"
           android:gravity="center"
           android:text="@string/twitter_adress"
-          android:textSize="16sp"
-          android:layout_toEndOf="@id/instagramTextView"
-          android:layout_alignTop="@id/instagramTextView"
-          android:layout_marginStart="8dp" />
+          android:textSize="16sp" />
 
     </RelativeLayout>
 

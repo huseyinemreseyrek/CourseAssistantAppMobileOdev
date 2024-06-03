@@ -85,9 +85,8 @@ public class SelectedPoll extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         email = user.getEmail();
-        userId = user.getUid(); // Get the user's ID
+        userId = user.getUid();
 
-        // Show the "End Poll" button if the user is an instructor
         if (email.endsWith("@yildiz.edu.tr")) {
             endPollButton.setVisibility(View.VISIBLE);
         }
@@ -134,7 +133,7 @@ public class SelectedPoll extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                // Extract prompt and options
+
                                 prompt = document.getString("prompt");
                                 pollPrompt.setText(prompt);
 
@@ -262,16 +261,16 @@ public class SelectedPoll extends AppCompatActivity {
                                 } else {
                                     Map<String, Long> options = (Map<String, Long>) document.get("options");
                                     if (options != null && options.containsKey(selectedOption)) {
-                                        // get the current vote count for the selected option
+
                                         Long currentCount = options.get(selectedOption);
                                         if (currentCount != null) {
-                                            // increment the count by one
+
                                             long newCount = currentCount + 1;
-                                            // update the count of the selected option in the options map
+
                                             options.put(selectedOption, newCount);
-                                            // add the user to the voters list
+
                                             voters.add(userId);
-                                            // update the   options map and the voters list in Firestore
+
                                             db.collection("Polls").document(name)
                                                     .update("options", options, "voters", voters)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -310,7 +309,7 @@ public class SelectedPoll extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(SelectedPoll.this, "Poll ended!", Toast.LENGTH_SHORT).show();
-                            loadPollData(); // reload data to shw results
+                            loadPollData();
                         } else {
                             Toast.makeText(SelectedPoll.this, "Failed to end poll", Toast.LENGTH_SHORT).show();
                         }

@@ -31,7 +31,7 @@ public class CreatePoll extends AppCompatActivity {
 
     EditText pollPrompt;
     EditText pollName;
-    LinearLayout optionsContainer;  // dynamic linear layout, hold options
+    LinearLayout optionsContainer;
 
     Button confirm;
 
@@ -55,12 +55,12 @@ public class CreatePoll extends AppCompatActivity {
         confirm = findViewById(R.id.btn_confirm);
         fStore = FirebaseFirestore.getInstance();
 
-        // Initialize the spinner with values from 2 to 6
+
         ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getOptionCountValues());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         optionCountSpinner.setAdapter(adapter);
 
-        // Item selection spinner
+
         optionCountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -102,16 +102,16 @@ public class CreatePoll extends AppCompatActivity {
         }
         return true;
     }
-    // create poll and put it into database
+
     private void submitPollToFirestore() {
         String prompt = pollPrompt.getText().toString().trim();
         String name = pollName.getText().toString().trim();
         int optionCount = optionsContainer.getChildCount();
         Map<String, Object> poll = new HashMap<>();
-        poll.put("prompt", prompt);             // put prompt to database
-        poll.put("option_count", optionCount);  // put option count to database
+        poll.put("prompt", prompt);
+        poll.put("option_count", optionCount);
 
-        // put options and their vote count to database, initialize them to 0
+
         Map<String, Integer> options = new HashMap<>();
         for (int i = 0; i < optionCount; i++) {
             EditText optionField = (EditText) optionsContainer.getChildAt(i);
@@ -130,7 +130,7 @@ public class CreatePoll extends AppCompatActivity {
                 .addOnFailureListener(e -> Toast.makeText(CreatePoll.this, "Failed to create poll", Toast.LENGTH_SHORT).show());
     }
 
-    // integer array from 2 to 9
+
     private Integer[] getOptionCountValues()
     {
         Integer[] values = new Integer[5];
@@ -143,7 +143,7 @@ public class CreatePoll extends AppCompatActivity {
 
     private void createOptionFields(int count)
     {
-        optionsContainer.removeAllViews(); // Clear existing fields
+        optionsContainer.removeAllViews();
         for (int i = 0; i < count; i++)
         {
             EditText optionField = new EditText(this);

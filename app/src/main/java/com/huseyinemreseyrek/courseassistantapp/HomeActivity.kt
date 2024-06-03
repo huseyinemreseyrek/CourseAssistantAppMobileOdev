@@ -69,8 +69,9 @@ class HomeActivity : AppCompatActivity() {
                 val downloadUrl = documentSnapshot.getString("downloadUrl") ?: ""
                 val educationalInfo = documentSnapshot.getString("educationalInfo") ?: ""
                 val phoneNumber = documentSnapshot.getString("phoneNumber") ?: ""
-                val instagramAddress = documentSnapshot.getString("instagramAddress") ?: ""
-                val twitterAddress = documentSnapshot.getString("twitterAddress") ?: ""
+                val instagramAddress = documentSnapshot.getString("instagramAdress") ?: ""
+                val twitterAddress = documentSnapshot.getString("twitterAdress") ?: ""
+                println("$twitterAddress hahaha")
                 val currentCourses = documentSnapshot.get("RegisteredCourses") as? MutableList<Map<String, Any>> ?: mutableListOf()
                 user = if(accountType == "Instructor"){
                     Instructor(accountType,name,surname,email,downloadUrl,educationalInfo,phoneNumber,instagramAddress,twitterAddress,currentCourses)
@@ -97,20 +98,23 @@ class HomeActivity : AppCompatActivity() {
         binding.phoneTextView.text = user.phoneNumber
         val userNameSurname = user.name + " " + user.surName
         binding.nameTextView.text = userNameSurname
+        println(user.twitterAdress + " hahahah")
         if(user.twitterAdress.isNotEmpty()){//twitter adres var ise koyalim yok ise koymayalim.
             binding.twitterTextView.visibility = View.VISIBLE
             binding.twitterTextView.text = user.twitterAdress
         }
         else{
-            binding.twitterTextView.visibility = View.INVISIBLE
+            binding.twitterTextView.visibility = View.GONE
         }
+
         if(user.instagramAdress.isNotEmpty()){//instagram adresi var ise koyalim yok ise koymayalim
             binding.instagramTextView.visibility = View.VISIBLE
             binding.instagramTextView.text = user.instagramAdress
         }
         else{
-            binding.instagramTextView.visibility = View.INVISIBLE
+            binding.instagramTextView.visibility = View.GONE
         }
+
     }
 
     fun clickPhoneNumber(view: View){//numaraya tiklaninca whatsapp acan fonksiyon
