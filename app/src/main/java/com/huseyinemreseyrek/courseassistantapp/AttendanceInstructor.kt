@@ -1,7 +1,5 @@
 package com.huseyinemreseyrek.courseassistantapp
 
-//filter.png
-//<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 import android.R
 import android.content.ContentValues

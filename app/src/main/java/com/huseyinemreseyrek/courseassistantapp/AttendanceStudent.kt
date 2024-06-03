@@ -1,14 +1,4 @@
 package com.huseyinemreseyrek.courseassistantapp
-// <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> Manifeste ekle
-// <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-//<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-//<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-// add attandence button to home activity
-// <activity
-//            android:name=".AttendanceStudent"
-//            android:exported="false" /> manifeste ekle
-// no_connection.png  (daha düzgün resim bul)
-//valid wifi adını değiştir
 
 import android.content.Context
 import android.net.ConnectivityManager
