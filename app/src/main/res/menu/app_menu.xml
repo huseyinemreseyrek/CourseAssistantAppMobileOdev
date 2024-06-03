@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/edit_profile"
-        android:title="Edit Profile" />
+        android:title="Edit Profile"
+        android:actionLayout="@layout/menu_item_layout"
+        android:icon="@drawable/editprofile"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/signout"
-        android:title="Sign Out" />
+        android:title="Sign Out"
+        android:actionLayout="@layout/menu_item_layout"
+        android:icon="@drawable/signout"
+        app:showAsAction="ifRoom"/>
 </menu>

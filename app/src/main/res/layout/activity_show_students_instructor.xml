@@ -5,26 +5,28 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShowStudentsActivityInstructor">
+    tools:context=".ShowStudentsActivityInstructor"
+    android:background="#FFFFF0">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="0dp"
-        android:background="?attr/colorPrimary"
+        android:background="#FFFFF0"
         android:elevation="5dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:title="Students"
+        app:titleTextColor="@color/black"
+        android:theme="@style/CustomToolbarTheme"
+        app:popupTheme="@style/PopupMenuStyle"
         app:layout_constraintTop_toTopOf="parent"
-
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:layout_editor_absoluteX="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id = "@+id/studentList"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:background="?attr/colorPrimary"
+        android:background="#FFFFF0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

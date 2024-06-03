@@ -163,7 +163,9 @@ class InstructorCourses : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.instructor_course_menu,menu)
-
+        if(userEmail.endsWith("@std.yildiz.edu.tr")){
+            menu?.findItem(R.id.add_course)?.isVisible = false
+        }
         return super.onCreateOptionsMenu(menu)
     }
 

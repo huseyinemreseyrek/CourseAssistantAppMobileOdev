@@ -87,8 +87,8 @@ class AccountInformation : AppCompatActivity() {
         println("Buraya kadar sorunsuz mu")
 
         binding.phoneNumberEditText.addTextChangedListener(object : TextWatcher {//phoneNumber girilirken kontrol et
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
@@ -96,12 +96,12 @@ class AccountInformation : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable) {
 
-                    if (s.length != 11) {
-                        binding.phoneNumberTextInputLayout.error = "Phone Number must be exactly 11 digits"
-                    } else {
-                        binding.phoneNumberTextInputLayout.error = null
+                if (s.length != 11) {
+                    binding.phoneNumberTextInputLayout.error = "Phone Number must be exactly 11 digits"
+                } else {
+                    binding.phoneNumberTextInputLayout.error = null
 
-                    }
+                }
 
             }
         })
@@ -213,56 +213,6 @@ class AccountInformation : AppCompatActivity() {
         }
     }
 
-    private fun openGallery2(view : View){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){ //android 13 ve ustu icin bunu yapmak zorundayiz.
-            pendingAction = Runnable { openGallery() }
-            if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED){
-                if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_MEDIA_IMAGES)){
-                    Snackbar.make(view,"Permission needed for gallery",Snackbar.LENGTH_INDEFINITE).setAction("Give Permission",View.OnClickListener {
-                        permissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
-                    }).show()
-                }
-                else{
-                    permissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
-                }
-
-
-            } else {
-                openGallery()
-            }
-        }else{//android 13 ve ustu degilse burayi yapiyoruz. read_external_storage
-            if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-                pendingAction = Runnable { openGallery() }
-                if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
-                    Snackbar.make(view,"Permission needed for gallery",Snackbar.LENGTH_INDEFINITE).setAction("Give Permission",View.OnClickListener {
-                        permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    }).show()
-                }
-                else{
-                    permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-                }
-            } else {
-                openGallery()
-            }
-        }
-    }
-
-    private fun openCamera2(view: View) {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            pendingAction = Runnable { openCamera() }
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-                Snackbar.make(view, "Camera permission is needed to take pictures", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Give Permission") {
-                        permissionLauncher.launch(Manifest.permission.CAMERA)
-                    }.show()
-            } else {
-                permissionLauncher.launch(Manifest.permission.CAMERA)
-            }
-        } else {
-            openCamera()
-        }
-    }
-
     private fun registerLaunchers(){
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if(result.resultCode == RESULT_OK){
@@ -287,23 +237,61 @@ class AccountInformation : AppCompatActivity() {
                 pendingAction = null
             }
         }
-
     }
 
     private fun checkAndPerformPendingAction() {
-        val hasCameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-        val hasGalleryPermission = ContextCompat.checkSelfPermission(this, if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) Manifest.permission.READ_MEDIA_IMAGES else Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-        when {
-            hasCameraPermission && pendingAction === Runnable { openCamera() } -> {
-                pendingAction?.run()
-                pendingAction = null
+        when (pendingAction) {
+            is Runnable -> pendingAction?.run()
+        }
+        pendingAction = null
+    }
+
+    private fun openGallery2(view: View) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13 ve üzeri için
+            pendingAction = Runnable { openGallery() }
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_MEDIA_IMAGES)) {
+                    Snackbar.make(view, "Permission needed for gallery", Snackbar.LENGTH_INDEFINITE).setAction("Give Permission") {
+                        permissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
+                    }.show()
+                } else {
+                    permissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
+                }
+            } else {
+                openGallery()
             }
-            hasGalleryPermission && pendingAction === Runnable { openGallery() } -> {
-                pendingAction?.run()
-                pendingAction = null
+        } else { // Android 13 altı için
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                pendingAction = Runnable { openGallery() }
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    Snackbar.make(view, "Permission needed for gallery", Snackbar.LENGTH_INDEFINITE).setAction("Give Permission") {
+                        permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    }.show()
+                } else {
+                    permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+                }
+            } else {
+                openGallery()
             }
         }
     }
+
+    private fun openCamera2(view: View) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            pendingAction = Runnable { openCamera() }
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                Snackbar.make(view, "Camera permission is needed to take pictures", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Give Permission") {
+                        permissionLauncher.launch(Manifest.permission.CAMERA)
+                    }.show()
+            } else {
+                permissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+        } else {
+            openCamera()
+        }
+    }
+
 
     fun showImageSourceDialog(view: View) { //Galeriden mi Kameradan mi fotograf koymak istiyor?
         val items = arrayOf("Select from Gallery", "Take Photo with Camera")
@@ -402,7 +390,7 @@ class AccountInformation : AppCompatActivity() {
         userRef.update(updates).addOnSuccessListener {
             Toast.makeText(this, "User attributes updated successfully.", Toast.LENGTH_SHORT).show()
             showProgress(false)
-            if(firstLogin == true){
+            if(firstLogin){
                 val intent = Intent(this, HomeActivity::class.java)
                 intent.putExtra("userEmail",userEmail)
                 startActivity(intent)

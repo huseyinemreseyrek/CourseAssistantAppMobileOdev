@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCourse">
+    tools:context=".AddCourse"
+    >
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/CourseIDTextInputLayout"
@@ -21,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/course_id"
-            android:inputType = "text"/>
+            android:inputType = "text"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -53,7 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Course Name"
-            android:inputType = "text"/>
+            android:inputType = "text"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -70,7 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/group_numbers"
-            android:inputType = "numberDecimal"/>
+            android:inputType = "numberDecimal"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

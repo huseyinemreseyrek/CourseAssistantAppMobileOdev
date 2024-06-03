@@ -63,6 +63,8 @@ dependencies {
     implementation("androidx.activity:activity:1.8.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("com.android.volley:volley:1.2.1")
+    implementation("com.google.firebase:firebase-database-ktx:21.0.0")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
 
 
     testImplementation("junit:junit:4.13.2")

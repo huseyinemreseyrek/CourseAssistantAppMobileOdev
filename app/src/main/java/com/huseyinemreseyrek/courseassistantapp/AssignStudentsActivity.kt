@@ -81,7 +81,6 @@ class AssignStudentsActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-
             data?.data?.also { uri ->
                 val fileName = getFileName(uri)
                 if (fileName.endsWith(".csv")) {
@@ -112,7 +111,7 @@ class AssignStudentsActivity : AppCompatActivity() {
         println(list)
         writeStudentsToCourses()
 
-        
+
     }
 
     private fun writeStudentsToCourses(){
@@ -173,34 +172,34 @@ class AssignStudentsActivity : AppCompatActivity() {
         val groupNum = "Group$groupNumber"
         if(email.endsWith("@std.yildiz.edu.tr")){
             GlobalScope.launch {
-                    val documentData = hashMapOf("email" to email)
+                val documentData = hashMapOf("email" to email)
 
-                    try {
-                        withContext(Dispatchers.IO) {
-                            val docRef = db.collection("Courses").document(courseID)
-                                .collection(groupNum).document(email)
-                            docRef.set(documentData).await()
-                            Log.d("TAG", "DocumentSnapshot successfully written!")
-                        }
-
-                        withContext(Dispatchers.IO) {
-                            val newCourse = mapOf(
-                                courseID to mapOf(
-                                    "courseName" to courseName,
-                                    "mainInstructor" to mainInstructor,
-                                    "courseID" to courseID,
-                                    "group" to groupNumber,
-                                    "status" to status,
-                                    "date" to date
-                                )
-                            )
-                            db.collection("Students").document(email)
-                                .set(mapOf("RegisteredCourses" to newCourse), SetOptions.merge()).await()
-                            println("New Students added successfully!")
-                        }
-                    } catch (e: Exception) {
-                        Log.w("TAG", "Error in transaction: ${e.message}")
+                try {
+                    withContext(Dispatchers.IO) {
+                        val docRef = db.collection("Courses").document(courseID)
+                            .collection(groupNum).document(email)
+                        docRef.set(documentData).await()
+                        Log.d("TAG", "DocumentSnapshot successfully written!")
                     }
+
+                    withContext(Dispatchers.IO) {
+                        val newCourse = mapOf(
+                            courseID to mapOf(
+                                "courseName" to courseName,
+                                "mainInstructor" to mainInstructor,
+                                "courseID" to courseID,
+                                "group" to groupNumber,
+                                "status" to status,
+                                "date" to date
+                            )
+                        )
+                        db.collection("Students").document(email)
+                            .set(mapOf("RegisteredCourses" to newCourse), SetOptions.merge()).await()
+                        println("New Students added successfully!")
+                    }
+                } catch (e: Exception) {
+                    Log.w("TAG", "Error in transaction: ${e.message}")
+                }
             }
             Toast.makeText(this, "Students Assigned", Toast.LENGTH_SHORT).show()
         }

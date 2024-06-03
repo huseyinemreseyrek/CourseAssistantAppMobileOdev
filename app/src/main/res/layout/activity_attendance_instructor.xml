@@ -44,8 +44,8 @@
         app:layout_constraintEnd_toEndOf="parent" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="460dp"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/courseNameListView"
         android:id="@+id/linearLayout">
         <ListView
@@ -60,8 +60,32 @@
         android:onClick="prepCSV"
         android:text="Download CSV"
         android:visibility="visible"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+    <Button
+        android:id="@+id/startAttendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startAttendance"
+        android:text="Start Attendance"
+        android:visibility="visible"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="-220dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/downloadCSV" />
+    <Button
+        android:id="@+id/stopAttendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="stopAttendance"
+        android:text="Stop Attendance"
+        android:visibility="visible"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="160dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/downloadCSV" />
 </androidx.constraintlayout.widget.ConstraintLayout>

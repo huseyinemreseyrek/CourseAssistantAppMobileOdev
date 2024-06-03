@@ -4,20 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddInstructorToCourse">
+    tools:context=".AddInstructorToCourse"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        >
 
         <EditText
             android:id="@+id/numberInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Number of Instructors"
-            android:inputType="number"/>
+            android:inputType="number"
+            />
 
         <Button
             android:id="@+id/createFieldsButton"
