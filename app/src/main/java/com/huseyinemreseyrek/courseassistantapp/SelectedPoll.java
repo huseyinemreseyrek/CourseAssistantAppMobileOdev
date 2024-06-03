@@ -299,7 +299,7 @@ public class SelectedPoll extends AppCompatActivity {
                         }
                     }
                 });
-
+        finish();
     }
 
     private void endPoll() {
@@ -316,5 +316,6 @@ public class SelectedPoll extends AppCompatActivity {
                         }
                     }
                 });
+        finish();
     }
 }

@@ -76,31 +76,24 @@ public class ShowPolls extends AppCompatActivity {
         Query query = pollsRef.whereEqualTo("group", group)
                 .whereEqualTo("course", courseID);
 
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onComplete(Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    // Query successful, handle the QuerySnapshot
-                    QuerySnapshot querySnapshot = task.getResult();
-                    // Iterate through the documents
-                    if (querySnapshot != null) {
-                        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                            polls.add(new Poll(
-                                    document.getString("name"),
-                                    document.getString("course")+"-" + group,
-                                    document.getString("status")
-                            ));
-                        }
-                        // Notify adapter of data change
-                        adapter.notifyDataSetChanged();
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Toast.makeText(ShowPolls.this, "Failed to listen for changes", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (queryDocumentSnapshots != null) {
+                    polls.clear(); // Clear the list to avoid duplication
+                    for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                        polls.add(new Poll(
+                                document.getString("name"),
+                                document.getString("course") + "-" + group,
+                                document.getString("status")
+                        ));
                     }
-                } else {
-                    Exception e = task.getException();
-                    if (e != null) {
-                        e.printStackTrace();
-                    } else {
-                        Toast.makeText(ShowPolls.this, "Failed to create poll", Toast.LENGTH_SHORT).show();
-                    }
+                    adapter.notifyDataSetChanged(); // Notify adapter of data change
                 }
             }
         });
